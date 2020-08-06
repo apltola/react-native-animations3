@@ -9,11 +9,20 @@ import Questionnaire from './src/screens/Questionnaire';
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  const Theme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: 'rgb(255,255,255)',
+    }
+  }
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={Theme}>
       <Tab.Navigator initialRouteName="1">
         <Tab.Screen name="1" component={Questionnaire} />
       </Tab.Navigator>
+      
       <StatusBar style="dark" /* hidden *//>
     </NavigationContainer>
 
