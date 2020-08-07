@@ -86,6 +86,68 @@ const PhotoGrid = () => {
     }
   }
 
+  const handleCloseImage = () => {
+    Animated.parallel([
+      Animated.timing(position.x, {
+        toValue: _x,
+        duration: 250,
+        useNativeDriver: false
+      }),
+      Animated.timing(position.y, {
+        toValue: _y,
+        duration: 250,
+        useNativeDriver: false
+      }),
+      Animated.timing(size.x, {
+        toValue: _width,
+        duration: 250,
+        useNativeDriver: false
+      }),
+      Animated.timing(size.y, {
+        toValue: _y,
+        duration: 250,
+        useNativeDriver: false
+      }),
+      Animated.timing(animation, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: false
+      })
+    ]).start(() => {
+      setActiveImage(null);
+      setActiveIndex(null);
+    })
+  }
+
+  useEffect(() => {
+    if (activeImage) {
+      _viewImage.current.measure((x, y, width, height, pageX, pageY) => {
+        Animated.parallel([
+          Animated.spring(position.x, {
+            toValue: pageX,
+            useNativeDriver: false
+          }),
+          Animated.spring(position.y, {
+            toValue: pageY,
+            useNativeDriver: false
+          }),
+          Animated.spring(size.x, {
+            toValue: width,
+            useNativeDriver: false
+          }),
+          Animated.spring(size.y, {
+            toValue: height,
+            useNativeDriver: false
+          }),
+          Animated.spring(animation, {
+            toValue: 1,
+            useNativeDriver: false
+          })
+        ]).start()
+      })
+    }
+  }, [activeImage])
+
   const animatedContentTranslate = animation.interpolate({
     inputRange: [0, 1],
     outputRange: [300, 0]
@@ -107,6 +169,10 @@ const PhotoGrid = () => {
 
   const activeIndexStyle = {
     opacity: activeImage ? 0 : 1
+  }
+
+  const animatedCloseStyle = {
+    opacity: animation
   }
 
   return (
@@ -138,15 +204,22 @@ const PhotoGrid = () => {
             key={activeImage}
             source={activeImage}
             resizeMode="cover"
-            style={[styles.viewImage]}
+            style={[styles.viewImage, activeImageStyle]}
           />
         </View>
         <Animated.View style={[styles.bottomContent, animatedContentStyles]}>
-          <Text style={styles.title}>Pretty Image</Text>    
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </Text>
+          <View style={{padding: 5}}>
+            <Text style={styles.title}>Pretty Image</Text>    
+            <Text style={styles.description}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla, ipsum quis porttitor lobortis, tortor lectus blandit dui, vel lobortis sapien magna at erat. Sed facilisis ex ligula, sed consequat ex ultricies vestibulum. Fusce commodo dolor sit amet ex fermentum porta. Cras aliquet in eros sed porta. Fusce sit amet arcu congue, aliquam enim eget, blandit ipsum. Suspendisse mattis mauris erat, at varius tellus pretium id. Nam magna nisl, blandit ac nisi quis, facilisis ultricies nisi. Duis leo augue, mattis a tempor vulputate, tempor at purus. Aenean aliquam at urna ac feugiat. Cras consequat dolor non libero lobortis lacinia. Aenean sagittis ipsum aliquam finibus commodo.
+            </Text>
+          </View>
         </Animated.View>
+        <TouchableWithoutFeedback onPress={handleCloseImage}>
+          <Animated.View style={[styles.close, animatedCloseStyle]}>
+            <Text style={styles.closeText}>X</Text>
+          </Animated.View>
+        </TouchableWithoutFeedback>
       </View>
     </View>
   )
@@ -171,15 +244,31 @@ const styles = StyleSheet.create({
   bottomContent: {
     flex: 2,
     backgroundColor: "#FFF",
+    //padding: 5,
   },
   viewImage: {
     width: null,
     height: null,
     position: "absolute",
     top: 0, left: 0,
+    zIndex: 9
   },
   title: {
     fontSize: 26,
+  },
+  description: {
+    paddingTop: 10,
+  },
+  close: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    zIndex: 99
+  },
+  closeText: {
+    backgroundColor: 'transparent',
+    fontSize: 28,
+    color: "#fff",
   }
 })
 
