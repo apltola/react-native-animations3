@@ -6,6 +6,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Questionnaire from './src/screens/Questionnaire';
 import ProgressButton from './src/screens/ProgressButton';
+import PhotoGrid from './src/screens/PhotoGrid';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,9 +21,10 @@ export default function App() {
 
   return (
     <NavigationContainer theme={Theme}>
-      <Tab.Navigator initialRouteName="button">
+      <Tab.Navigator initialRouteName="photo grid">
         <Tab.Screen name="questions" component={Questionnaire} />
         <Tab.Screen name="button" component={ProgressButton} />
+        <Tab.Screen name="photo grid" component={PhotoGrid} />
       </Tab.Navigator>
 
       <StatusBar style="dark" /* hidden *//>
