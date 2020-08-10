@@ -8,6 +8,7 @@ import Questionnaire from './src/screens/Questionnaire';
 import ProgressButton from './src/screens/ProgressButton';
 import PhotoGrid from './src/screens/PhotoGrid';
 import Joku from './src/screens/Joku';
+import ColorPicker from './src/screens/ColorPicker';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,11 +23,11 @@ export default function App() {
 
   return (
     <NavigationContainer theme={Theme}>
-      <Tab.Navigator initialRouteName="joku">
+      <Tab.Navigator initialRouteName="color">
         <Tab.Screen name="questions" component={Questionnaire} />
         <Tab.Screen name="button" component={ProgressButton} />
-        <Tab.Screen name="photo grid" component={PhotoGrid} />
-        <Tab.Screen name="joku" component={Joku} />
+        <Tab.Screen name="photos" component={PhotoGrid} />
+        <Tab.Screen name="color" component={ColorPicker} />
       </Tab.Navigator>
 
       <StatusBar style="dark" /* hidden *//>
