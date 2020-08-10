@@ -7,12 +7,14 @@ const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
 const ColorPicker = () => {
+  const _input = useRef();
   const animation = useRef(new Animated.Value(0)).current;
   const buttonAnimation = useRef(new Animated.Value(0)).current;
   const [color, setColor] = useState("#000");
   const [isOpen, setIsOpen] = useState(false);
+  const [isInputVisible, setIsInputVisible] = useState(false);
 
-  const handleToggle = () => {
+  const handleContentToggle = () => {
     const toValue = isOpen ? 0 : 1;
     Animated.spring(animation, {
       toValue,
@@ -21,6 +23,26 @@ const ColorPicker = () => {
       setIsOpen(!isOpen);
     });
   }
+
+  const handleInputToggle = () => {
+    const toValue = isInputVisible ? 0 : 1;
+    Animated.timing(buttonAnimation, {
+      toValue,
+      duration: 350,
+      useNativeDriver: false
+    }).start(() => {
+      setIsInputVisible(!isInputVisible);
+      //_input.current.focus();
+    })
+  }
+
+  useEffect(() => {
+    if (isInputVisible) {
+      _input.current.focus();
+    } else {
+      _input.current.blur();
+    }
+  }, [isInputVisible])
 
   const scaleXInterpolate = animation.interpolate({
     inputRange: [0, .5, 1],
@@ -53,33 +75,69 @@ const ColorPicker = () => {
     ]
   }
 
+  const inputOpacityInterpolate = buttonAnimation.interpolate({
+    inputRange: [0, .75, 1],
+    outputRange: [0, 0, 1]
+  })
+
+  const iconTranslate = buttonAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -20]
+  })
+
+  const iconOpacityInterpolate = buttonAnimation.interpolate({
+    inputRange: [0, .2],
+    outputRange: [1, 0],
+    extrapolate: 'clamp'
+  })
+
+  const iconStyle = {
+    opacity: iconOpacityInterpolate,
+    transform: [
+      { translateX: iconTranslate }
+    ]
+  }
+
+  const inputStyle = {
+    opacity: inputOpacityInterpolate
+  }
+
   const colorStyle = {
     backgroundColor: color
   }
 
+
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.rowWrap, rowStyle]}>
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={handleInputToggle}>
           <Animated.View style={[styles.colorBall, colorStyle]} />
         </TouchableWithoutFeedback>
-        <View style={styles.row}>
+        <View style={[styles.row]}>
           <TouchableOpacity>
-            <AnimatedIcon name="bold" size={30} color="#555" />
+            <AnimatedIcon name="bold" size={30} color="#555" style={[iconStyle]} />
           </TouchableOpacity>
           <TouchableOpacity>
-            <AnimatedIcon name="italic" size={30} color="#555" />
+            <AnimatedIcon name="italic" size={30} color="#555" style={[iconStyle]} />
           </TouchableOpacity>
           <TouchableOpacity>
-            <AnimatedIcon name="align-center" size={30} color="#555" />
+            <AnimatedIcon name="align-center" size={30} color="#555" style={[iconStyle]} />
           </TouchableOpacity>
           <TouchableOpacity>
-            <AnimatedIcon name="link" size={30} color="#555" />
+            <AnimatedIcon name="link" size={30} color="#555" style={[iconStyle]} />
           </TouchableOpacity>
 
-          <Animated.View style={[StyleSheet.absoluteFill, styles.colorRowWrap]}>
-            <AnimatedTextInput style={[styles.input]} />
-            <TouchableWithoutFeedback>
+          <Animated.View
+            style={[StyleSheet.absoluteFill, styles.colorRowWrap]}
+            pointerEvents={isInputVisible ? "auto" : "none"}
+          >
+            <AnimatedTextInput
+              value={color}
+              onChangeText={(text) => setColor(text)}
+              style={[styles.input, inputStyle]}
+              ref={_input}
+            />
+            <TouchableWithoutFeedback onPress={handleInputToggle}>
               <Animated.View style={[styles.okButton, buttonStyle]}>
                 <Text style={styles.okText}>OK</Text>
               </Animated.View>
@@ -88,8 +146,8 @@ const ColorPicker = () => {
         </View>
       </Animated.View>
 
-      <TouchableOpacity onPress={handleToggle} style={styles.button}>
-        <Text>toggle open / closed</Text>
+      <TouchableOpacity onPress={handleContentToggle} style={styles.button}>
+        <Text style={{color: 'black'}}>toggle open / closed</Text>
       </TouchableOpacity>
     </View>
   )
@@ -137,9 +195,9 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   colorBall: {
-    width: 15,
-    height: 15,
-    borderRadius: 8,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
   },
   row: {
     flex: 1,
