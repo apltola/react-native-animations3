@@ -190,7 +190,6 @@ const PhotoGrid = () => {
                   style={[styles.gridImage, style]}
                   resizeMode="cover"
                   ref={_gridImages[index]}
-                  //ref={jokureffi}
                 />
               </TouchableWithoutFeedback>
             )
