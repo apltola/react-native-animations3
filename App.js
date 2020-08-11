@@ -9,6 +9,7 @@ import ProgressButton from './src/screens/ProgressButton';
 import PhotoGrid from './src/screens/PhotoGrid';
 import Joku from './src/screens/Joku';
 import ColorPicker from './src/screens/ColorPicker';
+import ActionButton from './src/screens/ActionButton';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,11 +24,12 @@ export default function App() {
 
   return (
     <NavigationContainer theme={Theme}>
-      <Tab.Navigator initialRouteName="color">
+      <Tab.Navigator initialRouteName="menu">
         <Tab.Screen name="questions" component={Questionnaire} />
         <Tab.Screen name="button" component={ProgressButton} />
         <Tab.Screen name="photos" component={PhotoGrid} />
         <Tab.Screen name="color" component={ColorPicker} />
+        <Tab.Screen name="menu" component={ActionButton} />
       </Tab.Navigator>
 
       <StatusBar style="dark" /* hidden *//>
