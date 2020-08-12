@@ -26,41 +26,41 @@ const Modal = () => {
     onPanResponderMove: (event, gestureState) => {
       const { dy } = gestureState;
       if (dy < 0) {
-        animated.setValue(dy);
+        animated.setValue(dy*0.6);
       } else if (dy > 0) {
-        animatedMargin.setValue(dy);
+        animatedMargin.setValue(dy*0.6);
       }
     },
     onPanResponderRelease: (e, gestureState) => {
       const { dy } = gestureState;
       console.log(dy);
-      if (dy < -150) {
+      if (dy < -200) {
         Animated.parallel([
           Animated.timing(animated, {
             toValue: -400,
-            duration: 150,
+            duration: 200,
             useNativeDriver: false
           }),
           Animated.timing(animatedMargin, {
             toValue: 0,
-            duration: 150,
+            duration: 200,
             useNativeDriver: false
           })
         ]).start()
-      } else if (dy > -150 && dy < 150) {
+      } else if (dy > -200 && dy < 200) {
         Animated.parallel([
           Animated.timing(animated, {
             toValue: 0,
-            duration: 150,
+            duration: 200,
             useNativeDriver: false
           }),
           Animated.timing(animatedMargin, {
             toValue: 0,
-            duration: 150,
+            duration: 200,
             useNativeDriver: false
           })
         ]).start();
-      } else if (dy > 150) {
+      } else if (dy > 200) {
         Animated.timing(animated, {
           toValue: 400,
           duration: 300,
