@@ -10,7 +10,7 @@ const { width, height } = Dimensions.get("window");
 const getScreen1Styles = (animation, width) => {
   const image2TranslateX = animation.interpolate({
     inputRange: [0, width],
-    outputRange: [0, -100],
+    outputRange: [0, -130],
     extrapolate: "clamp"
   });
 
