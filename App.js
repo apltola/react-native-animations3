@@ -12,6 +12,7 @@ import ColorPicker from './src/screens/ColorPicker';
 import ActionButton from './src/screens/ActionButton';
 import IntroScreen from './src/screens/IntroScreen';
 import WriteButton from './src/screens/WriteButton';
+import Modal from './src/screens/Modal';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +27,7 @@ export default function App() {
 
   return (
     <NavigationContainer theme={Theme}>
-      <Tab.Navigator initialRouteName="write">
+      <Tab.Navigator initialRouteName="modal">
         <Tab.Screen name="questions" component={Questionnaire} />
         <Tab.Screen name="button" component={ProgressButton} />
         <Tab.Screen name="photos" component={PhotoGrid} />
@@ -34,6 +35,7 @@ export default function App() {
         <Tab.Screen name="menu" component={ActionButton} />
         <Tab.Screen name="intro" component={IntroScreen} />
         <Tab.Screen name="write" component={WriteButton} />
+        <Tab.Screen name="modal" component={Modal} />
       </Tab.Navigator>
 
       <StatusBar style="dark" /* hidden *//>

@@ -3,7 +3,7 @@ import { Image, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback, TextIn
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ActionButton = () => {
-  const animation = useRef(new Animated.Value(1)).current;
+  const animation = useRef(new Animated.Value(0)).current;
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => {
