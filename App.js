@@ -30,7 +30,7 @@ export default function App() {
   return (
     <NavigationContainer theme={Theme}>
       <Tab.Navigator initialRouteName="drinks">
-        <Tab.Screen name="questions" component={Questionnaire} />
+        <Tab.Screen name="q&a" component={Questionnaire} />
         <Tab.Screen name="button" component={ProgressButton} />
         <Tab.Screen name="photos" component={PhotoGrid} />
         <Tab.Screen name="color" component={ColorPicker} />

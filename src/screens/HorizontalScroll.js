@@ -7,9 +7,33 @@ const Images = [
   { image: require('../../assets/drinkImages/drink2.jpg'), title: "Old Fashioned" },
   { image: require('../../assets/drinkImages/drink3.jpg'), title: "Mule" },
   { image: require('../../assets/drinkImages/drink4.jpg'), title: "Strawberry Daiquiri" },
+  { image: require('../../assets/drinkImages/drink6.jpeg'), title: "Martini" },
 ];
 
 const { width, height } = Dimensions.get("window");
+
+const getInterpolate = (animatedScroll, i, imageLength) => {
+  const inputRange = [
+    (i-1) * width,
+    i * width,
+    (i+1) * width
+  ]
+  const outputRange = i === 0 ? [0, 0, 150] : [-300, 0, 150];
+  return animatedScroll.interpolate({
+    inputRange,
+    outputRange,
+    extrapolate: "clamp"
+  })
+}
+
+const getSeparator = i => {
+  return (
+    <View
+      key={i}
+      style={[styles.separate, { left: (i - 1) * width - 2.5 }]}
+    />
+  );
+}
 
 const Drinks = () => {
   const animatedScroll = useRef(new Animated.Value(0)).current;
@@ -17,8 +41,8 @@ const Drinks = () => {
   return (
     <View style={styles.container}>
       <ScrollView
-        pagingEnabled
         horizontal
+        pagingEnabled
         scrollEventThrottle={16}
         onScroll={Animated.event(
           [
@@ -35,8 +59,11 @@ const Drinks = () => {
       >
         {Images.map((image, i) => {
           return (
-            <Moment key={i} {...image} />
+            <Moment key={i} {...image} translateX={getInterpolate(animatedScroll, i, Image.length)} />
           )
+        })}
+        {Array.apply(null, { length: Images.length + 1}).map((_, i) => {
+          return getSeparator(i);
         })}
       </ScrollView>
     </View>
@@ -46,6 +73,12 @@ const Drinks = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  separate: {
+    backgroundColor: "#000",
+    position: "absolute",
+    top: 0, bottom: 0,
+    width: 3,
   }
 });
 

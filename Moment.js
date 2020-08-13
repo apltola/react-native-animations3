@@ -3,13 +3,26 @@ import { View, Text, StyleSheet, Animated, Dimensions, TouchableWithoutFeedback
 const { width, height } = Dimensions.get("window");
 
 const Moment = props => {
+  const animatedStyle = {
+    transform: [
+      { translateX: props.translateX || 0 }
+    ]
+  }
+
   return (
     <View style={styles.container}>
       <Animated.Image
         source={props.image}
-        style={styles.image}
+        style={[styles.image, animatedStyle]}
         resizeMode="cover"
       />
+      <View style={[StyleSheet.absoluteFill, styles.center]}>
+        <View style={styles.textWrap}>
+          <Text style={styles.title}>
+            {props.title}
+          </Text>
+        </View>
+      </View>
     </View>
   )
 }
@@ -34,7 +47,8 @@ const styles = StyleSheet.create({
   },
   title: {
     backgroundColor: "transparent",
-    fontSize: 30,
+    fontSize: 24,
+    fontWeight: "bold",
     color: "#FFF",
     textAlign: "center",
   }
