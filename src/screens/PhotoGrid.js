@@ -104,7 +104,7 @@ const PhotoGrid = () => {
         useNativeDriver: false
       }),
       Animated.timing(size.y, {
-        toValue: _y,
+        toValue: _height,
         duration: 250,
         useNativeDriver: false
       }),

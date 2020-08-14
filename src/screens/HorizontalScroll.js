@@ -62,9 +62,9 @@ const Drinks = () => {
             <Moment key={i} {...image} translateX={getInterpolate(animatedScroll, i, Image.length)} />
           )
         })}
-        {Array.apply(null, { length: Images.length + 1}).map((_, i) => {
+        {/* Array.apply(null, { length: Images.length + 1}).map((_, i) => {
           return getSeparator(i);
-        })}
+        }) */}
       </ScrollView>
     </View>
   )

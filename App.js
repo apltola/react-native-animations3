@@ -15,6 +15,7 @@ import WriteButton from './src/screens/WriteButton';
 import Modal from './src/screens/Modal';
 import Jeejee from './src/screens/Jeejee';
 import Drinks from './src/screens/HorizontalScroll';
+import FloatingHearts from './src/screens/FloatingHearts';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,16 +30,17 @@ export default function App() {
 
   return (
     <NavigationContainer theme={Theme}>
-      <Tab.Navigator initialRouteName="drinks">
-        <Tab.Screen name="q&a" component={Questionnaire} />
-        <Tab.Screen name="button" component={ProgressButton} />
-        <Tab.Screen name="photos" component={PhotoGrid} />
-        <Tab.Screen name="color" component={ColorPicker} />
-        <Tab.Screen name="menu" component={ActionButton} />
-        <Tab.Screen name="intro" component={IntroScreen} />
-        <Tab.Screen name="write" component={WriteButton} />
-        <Tab.Screen name="modal" component={Modal} />
-        <Tab.Screen name="drinks" component={Drinks} />
+      <Tab.Navigator initialRouteName="10">
+        <Tab.Screen name="1" component={Questionnaire} />
+        <Tab.Screen name="2" component={ProgressButton} />
+        <Tab.Screen name="3" component={PhotoGrid} />
+        <Tab.Screen name="4" component={ColorPicker} />
+        <Tab.Screen name="5" component={ActionButton} />
+        <Tab.Screen name="6" component={IntroScreen} />
+        <Tab.Screen name="7" component={WriteButton} />
+        <Tab.Screen name="8" component={Modal} />
+        <Tab.Screen name="9" component={Drinks} />
+        <Tab.Screen name="10" component={FloatingHearts} />
       </Tab.Navigator>
 
       <StatusBar style="dark" /* hidden *//>
