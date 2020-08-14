@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Image, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback, TextInput, Animated, View, StyleSheet, PanResponder, Text, StatusBar, Dimensions, KeyboardAvoidingView, ScrollView, PixelRatio } from 'react-native';
-import Moment from '../../Moment';
+import Slide from '../Components/DrinkSlide';
 
 const Images = [
   { image: require('../../assets/drinkImages/drink1.jpg'), title: "Vodka Cran" },
@@ -14,9 +14,9 @@ const { width, height } = Dimensions.get("window");
 
 const getInterpolate = (animatedScroll, i, imageLength) => {
   const inputRange = [
-    (i-1) * width,
+    (i - 1) * width,
     i * width,
-    (i+1) * width
+    (i + 1) * width
   ]
   const outputRange = i === 0 ? [0, 0, 150] : [-300, 0, 150];
   return animatedScroll.interpolate({
@@ -59,7 +59,7 @@ const Drinks = () => {
       >
         {Images.map((image, i) => {
           return (
-            <Moment key={i} {...image} translateX={getInterpolate(animatedScroll, i, Image.length)} />
+            <Slide key={i} {...image} translateX={getInterpolate(animatedScroll, i, Image.length)} />
           )
         })}
         {/* Array.apply(null, { length: Images.length + 1}).map((_, i) => {

@@ -16,6 +16,7 @@ import Modal from './src/screens/Modal';
 import Jeejee from './src/screens/Jeejee';
 import Drinks from './src/screens/HorizontalScroll';
 import FloatingHearts from './src/screens/FloatingHearts';
+import BouncingHeart from './src/screens/BouncingHeart';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,7 +31,7 @@ export default function App() {
 
   return (
     <NavigationContainer theme={Theme}>
-      <Tab.Navigator initialRouteName="10">
+      <Tab.Navigator initialRouteName="11">
         <Tab.Screen name="1" component={Questionnaire} />
         <Tab.Screen name="2" component={ProgressButton} />
         <Tab.Screen name="3" component={PhotoGrid} />
@@ -41,6 +42,7 @@ export default function App() {
         <Tab.Screen name="8" component={Modal} />
         <Tab.Screen name="9" component={Drinks} />
         <Tab.Screen name="10" component={FloatingHearts} />
+        <Tab.Screen name="11" component={BouncingHeart} />
       </Tab.Navigator>
 
       <StatusBar style="dark" /* hidden *//>
