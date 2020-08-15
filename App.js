@@ -18,6 +18,7 @@ import Drinks from './src/screens/HorizontalScroll';
 import FloatingHearts from './src/screens/FloatingHearts';
 import BouncingHeart from './src/screens/BouncingHeart';
 import ExplodingHeart from './src/screens/ExplodingHeart';
+import NotifyInput from './src/screens/NotifyInput';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +33,7 @@ export default function App() {
 
   return (
     <NavigationContainer theme={Theme}>
-      <Tab.Navigator initialRouteName="12">
+      <Tab.Navigator initialRouteName="13">
         <Tab.Screen name="1" component={Questionnaire} />
         <Tab.Screen name="2" component={ProgressButton} />
         <Tab.Screen name="3" component={PhotoGrid} />
@@ -45,6 +46,7 @@ export default function App() {
         <Tab.Screen name="10" component={FloatingHearts} />
         <Tab.Screen name="11" component={BouncingHeart} />
         <Tab.Screen name="12" component={ExplodingHeart} />
+        <Tab.Screen name="13" component={NotifyInput} />
       </Tab.Navigator>
 
       <StatusBar style="dark" /* hidden *//>
