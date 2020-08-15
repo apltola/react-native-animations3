@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Image, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback, TextInput, Animated, View, StyleSheet, PanResponder, Text, StatusBar, Dimensions, KeyboardAvoidingView, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
+
 const NotifyInput = () => {
   const _emailInput = useRef();
   const animation = useRef(new Animated.Value(0)).current;
@@ -108,11 +110,11 @@ const NotifyInput = () => {
             placeholderTextColor="rgba(255,123,115,0.8)"
             style={styles.textInput}
           />
-          <TouchableWithoutFeedback onPress={handleSend}>
-            <Animated.View style={[styles.sendButton, sendButtonStyle]}>
-              <Text style={styles.sendText}>Send</Text>
-            </Animated.View>
-          </TouchableWithoutFeedback>
+          <AnimatedTouchableOpacity onPress={handleSend} style={[styles.sendButton, sendButtonStyle]}>
+            <Text style={styles.sendText}>
+              Send
+            </Text>
+          </AnimatedTouchableOpacity>
         </Animated.View>}
 
         {!success && <Animated.View style={notifyTextStyle}>
