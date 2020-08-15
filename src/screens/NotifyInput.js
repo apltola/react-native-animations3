@@ -13,12 +13,15 @@ const NotifyInput = () => {
       duration: 300,
       useNativeDriver: false
     }).start(() => {
-      _emailInput.current.focus();
+      if (_emailInput.current) {
+        _emailInput.current.focus();
+      }
     });
   }
 
   const handleSend = () => {
-    setSuccess(true)
+    setSuccess(true);
+    _emailInput.current.blur();
   }
   
   useEffect(() => {
